@@ -1,6 +1,7 @@
 import pygame
 
 from src.Scenes.SceneManager import SceneManager
+from src.ColorPalette import *
 
 # Initialize pygame
 pygame.init()
@@ -26,7 +27,7 @@ while running:
     # Update game logic
 
     # Render the screen
-    screen.fill((0, 0, 0))
+    screen.fill(GBACOLOR0)
 
     SceneManager.displayScene()
 

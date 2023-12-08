@@ -1,4 +1,5 @@
 from src.Button import Button
+from src.ColorPalette import *
 
 class MainMenu:
     def __init__(self, pygame, screen):
@@ -7,7 +8,7 @@ class MainMenu:
         buttonWidth = 300
         centered_posX = screen.get_width() / 2 - buttonWidth / 2
         self.font = pygame.font.Font(None, 100)
-        self.text_surface = self.font.render("Wurio Ware", True, (255, 255, 255))
+        self.text_surface = self.font.render("Wurio Wire", True, GBACOLOR3)
 
         self._playButton = Button(pygame, screen, centered_posX, 200, buttonWidth, 100, "Play")
         self._quitButton = Button(pygame, screen, centered_posX, 400, buttonWidth, 100, "Quit")
