@@ -17,6 +17,9 @@ class SceneManager:
             "TestMenu": TestMenu(pygame, screen),
             "MiniGameMarioGalaxy": MiniGameMarioGalaxy(pygame, screen),
         }
+
+        self._music = self._pygame.mixer.Sound("assets/music/wario_ware_smash_theme.ogg")
+        self._music.play(-1)
         self._currentScene = "None"
         self._nextScene = "None"
         self.switchScene("MainMenu")
