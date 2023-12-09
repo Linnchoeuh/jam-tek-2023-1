@@ -9,6 +9,7 @@ from src.MiniGame.MarioGalaxy import MiniGameMarioGalaxy
 from src.MiniGame.JeanEudePLS import MiniGameJeanEudePLS
 from src.MiniGame.DodgeDinner import MiniGameDodgeDinner
 from src.MiniGame.MonsterHunter import MiniGameMonsterHunter
+from src.MiniGame.WiiPlayTanks import MiniGameWiiPlayTanks
 # from src.MiniGame.DoodleJump import MiniGameDoodleJump
 
 class SceneManager:
@@ -25,7 +26,9 @@ class SceneManager:
             "MiniGameJeanEudePLS": MiniGameJeanEudePLS(pygame, screen),
             "MiniGameDodgeDinner": MiniGameDodgeDinner(pygame, screen),
             "MiniGameMonsterHunter": MiniGameMonsterHunter(pygame, screen),
+            "MiniGameWiiPlayTanks": MiniGameWiiPlayTanks(pygame, screen),
             # "MiniGameDoodleJump": MiniGameDoodleJump(pygame, screen)
+
         }
 
         self._gameList = [
@@ -33,6 +36,7 @@ class SceneManager:
             "MiniGameJeanEudePLS",
             "MiniGameDodgeDinner",
             "MiniGameMonsterHunter",
+            "MiniGameWiiPlayTanks",
             # "MiniGameDoodleJump"
         ]
         self._gameToDoList = self._gameList.copy()

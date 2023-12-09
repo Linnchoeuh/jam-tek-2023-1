@@ -5,7 +5,6 @@ from src.Animation import Animation
 from src.ColorPalette import *
 from src.WindowConfig import *
 
-from src.Animation import Animation
 
 # Initialize pygame
 pygame.init()
@@ -23,12 +22,13 @@ animationGroup = pygame.sprite.Group()
 animationGroup.add(Animation(spriteSheet, 4, 1))
 SceneManager = SceneManager(pygame, screenCpy)
 
-joffrey_left = pygame.image.load("assets/img/joffrey_left.png")
-joffrey_right = pygame.image.load("assets/img/joffrey_right.png")
+joffrey_left = pygame.image.load("assets/img/joffrey_left_green.png")
+joffrey_right = pygame.image.load("assets/img/joffrey_right_green.png")
 joffrey_width = joffrey_left.get_width()
 joffrey_height = joffrey_left.get_height()
 joffrey_ratio = joffrey_width / joffrey_height
 screenOffset = 0
+
 
 # Game loop
 running = True
@@ -47,6 +47,8 @@ while running:
 
     SceneManager.updateMouse(screen)
     SceneManager.displayScene()
+    animationGroup.update()
+    animationGroup.draw(screen)
 
     screenOffset = (screen.get_size()[0] - screen.get_size()[1] * SCREENRATIO) / 2
     screenOffsetAdjusted = screenOffset
