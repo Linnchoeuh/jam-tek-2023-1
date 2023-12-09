@@ -17,5 +17,5 @@ class TestMenu:
     def run(self, sceneManager):
         self._backButton.display()
 
-        if (self._backButton.isClicked(sceneManager.getEvents())):
+        if (self._backButton.isClicked(sceneManager._mouse)):
             sceneManager.changeScene("MainMenu")
