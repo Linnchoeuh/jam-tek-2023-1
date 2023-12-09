@@ -1,22 +1,32 @@
 from src.ColorPalette import *
+from src.Mouse import Mouse
 from src.Scenes.MainMenu import MainMenu
+from src.Scenes.LoseMenu import LoseMenu
 from src.Scenes.TestMenu import TestMenu
-
+from src.MiniGame.MarioGalaxy import MiniGameMarioGalaxy
 class SceneManager:
     def __init__(self, pygame, screen):
         self._pygame = pygame
         self._screen = screen
 
+        self._mouse = Mouse(pygame)
+
         self._sceneList: dict = {
             "MainMenu": MainMenu(pygame, screen),
+            "LoseMenu": LoseMenu(pygame, screen),
             "TestMenu": TestMenu(pygame, screen),
+            "MiniGameMarioGalaxy": MiniGameMarioGalaxy(pygame, screen),
         }
         self._currentScene = "None"
         self._nextScene = "None"
         self.switchScene("MainMenu")
         self._events = pygame.event.get()
-        self._transitionStart = -1;
-        self._transitionEnd = -1;
+        self._transitionStart = -1
+        self._transitionEnd = -1
+
+        self._font = pygame.font.Font(None, 50)
+        self._difficulty = 0
+        self._score = 0
 
     def sceneNameExist(self, sceneName):
         return sceneName in self._sceneList
@@ -25,7 +35,9 @@ class SceneManager:
         return self._sceneList[sceneName]
 
     def changeScene(self, sceneName: str):
-        self._nextScene = sceneName
+        if self._transitionStart == -1 and self._transitionEnd == -1:
+            self._nextScene = sceneName
+            self._transitionStart = 0
 
     def switchScene(self, sceneName: str):
         if self._currentScene != "None":
@@ -40,6 +52,7 @@ class SceneManager:
         return self.getEvents()
 
     def displayScene(self):
+        self._mouse.update()
         self._sceneList[self._currentScene].run(self)
         self.displayTransition()
 
@@ -61,10 +74,8 @@ class SceneManager:
         transitionSpeed = 1/12
         transitionColor = GBACOLOR1
 
-        if self._nextScene != self._currentScene or self._transitionStart != -1 or self._transitionEnd != -1:
-            if self._nextScene != self._currentScene and self._transitionStart < 0:
-                self._transitionStart = 0
-            elif self._transitionStart < 1:
+        if self._transitionStart != -1 or self._transitionEnd != -1:
+            if self._transitionStart < 1:
                 self._transitionStart += transitionSpeed
                 part = (screenWidth / 2) * self._transitionStart * 1.1
                 leftSquare = self._pygame.Rect(0, 0, part, self._screen.get_height())
@@ -85,3 +96,28 @@ class SceneManager:
                 self._transitionEnd = -1
             self._pygame.draw.rect(self._screen, transitionColor, leftSquare)
             self._pygame.draw.rect(self._screen, transitionColor, rightSquare)
+
+    def getDifficulty(self):
+        return self._difficulty
+
+    def incrementDifficulty(self):
+        self._difficulty += 1
+
+    def setDifficulty(self, difficulty):
+        self._difficulty = difficulty
+
+    def getScore(self):
+        return self._score
+
+    def incrementScore(self):
+        self._score += 1
+
+    def setScore(self, score):
+        self._score = score
+
+    def displayScore(self):
+        text_surface = self._font.render("Score: " + str(self._score), True, GBACOLOR3)
+        self._screen.blit(text_surface, (10, 10))
+
+    def updateMouse(self, screen):
+        self._mouse.scalePosition(screen.get_width(), screen.get_height())
