@@ -110,9 +110,7 @@ class MiniGameJeanEudePLS:
 
         if self._slapCount >= self._slappCountMax:
             if self._msg.display() and not self._gameChanged:
-                sceneManager.incrementDifficulty()
-                sceneManager.incrementScore()
-                sceneManager.changeScene("MiniGameMarioGalaxy")
+                sceneManager.nextGame()
                 self._gameChanged = True
         elif self._timer.display():
             sceneManager.changeScene("LoseMenu")
