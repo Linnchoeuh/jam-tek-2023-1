@@ -35,7 +35,7 @@ class SceneManager:
             "MiniGameJeanEudePLS",
             "MiniGameDodgeDinner",
             "MiniGameMonsterHunter",
-            "MiniGameDoodleJump"
+            "MiniGameDoodleJump",
             "MiniGameWiiPlayTanks",
         ]
         self._gameToDoList = self._gameList.copy()
