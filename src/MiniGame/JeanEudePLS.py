@@ -49,6 +49,9 @@ class MiniGameJeanEudePLS:
         self._shakingDuration = 0
         self._shakingAmplitude = 50
 
+        self._action.reset()
+        self._msg.reset()
+
     def unloadScene(self, sceneManager):
         self._jeaneude = None
         self._hand[0] = None
