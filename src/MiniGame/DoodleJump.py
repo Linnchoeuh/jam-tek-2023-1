@@ -46,7 +46,6 @@ class MiniGameDoodleJump:
 
             platform_y = prev_platform_y - 100
             platform_pos = (platform_x, platform_y)
-            print(platform_pos)
             self._platforms_pos.append(platform_pos)
 
         self._timer = Timer(self._pygame, self._screen, 10 + sceneManager.getDifficulty() * 2)
