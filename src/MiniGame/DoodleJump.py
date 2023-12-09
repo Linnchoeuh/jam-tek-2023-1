@@ -37,7 +37,7 @@ class MiniGameDoodleJump:
         first_platform_pos = (self._screen.get_width() // 2 - self._platform.get_width() // 2, self._screen.get_height() - self._platform.get_height() - 100)
         self._platforms_pos.append(first_platform_pos)
 
-        for i in range(1, 10 + sceneManager.getDifficulty() * 2):
+        for i in range(1, 10 + sceneManager.getDifficulty()):
             prev_platform_x, prev_platform_y = self._platforms_pos[i-1]
 
             min_x = 0
