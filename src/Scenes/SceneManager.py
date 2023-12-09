@@ -9,7 +9,7 @@ from src.MiniGame.MarioGalaxy import MiniGameMarioGalaxy
 from src.MiniGame.JeanEudePLS import MiniGameJeanEudePLS
 from src.MiniGame.DodgeDinner import MiniGameDodgeDinner
 from src.MiniGame.MonsterHunter import MiniGameMonsterHunter
-# from src.MiniGame.DoodleJump import MiniGameDoodleJump
+from src.MiniGame.DoodleJump import MiniGameDoodleJump
 
 class SceneManager:
     def __init__(self, pygame, screen):
@@ -25,7 +25,7 @@ class SceneManager:
             "MiniGameJeanEudePLS": MiniGameJeanEudePLS(pygame, screen),
             "MiniGameDodgeDinner": MiniGameDodgeDinner(pygame, screen),
             "MiniGameMonsterHunter": MiniGameMonsterHunter(pygame, screen),
-            # "MiniGameDoodleJump": MiniGameDoodleJump(pygame, screen)
+            "MiniGameDoodleJump": MiniGameDoodleJump(pygame, screen)
         }
 
         self._gameList = [
@@ -33,7 +33,7 @@ class SceneManager:
             "MiniGameJeanEudePLS",
             "MiniGameDodgeDinner",
             "MiniGameMonsterHunter",
-            # "MiniGameDoodleJump"
+            "MiniGameDoodleJump"
         ]
         self._gameToDoList = self._gameList.copy()
 
