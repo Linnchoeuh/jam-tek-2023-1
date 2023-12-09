@@ -17,7 +17,7 @@ class GreatSword:
         self._angle = 0
         self._x = x
         self._y = y
-        self._slashSpeed = 30
+        self._slashSpeed = 20
         self._slashMaxAngle = 90
         self._cooldown = 0
         self._slashing = False
@@ -55,9 +55,9 @@ class MiniGameMonsterHunter:
         self.counter = 0
         self._arrows = []
         self._dissapearedArrow = []
-        self._action = DisplayAction(pygame, screen, "Press arrow key!")
+        self._action = DisplayAction(pygame, screen, "Defeat the monsters! Use arrow key!", "assets/sfx/quest_start.ogg")
         self._msg = DisplayAction(pygame, screen, "Quest cleared!", "assets/sfx/quest_cleared.ogg")
-        self._timer = Timer(pygame, screen, 10)
+        self._timer = Timer(pygame, screen, 8)
         self._pause = Pause(pygame, screen)
 
         self._gameChanged = False
@@ -71,7 +71,7 @@ class MiniGameMonsterHunter:
         self._arrows = []
         self._dissapearedArrow = []
         self._jagrasEjectionList = []
-        for i in range(5 + sceneManager.getDifficulty()):
+        for i in range(5 + sceneManager.getDifficulty() * 2):
             direction = random.randint(0, 3)
             self._arrows.append([direction,
                 Arrow(self._pygame, self._screen, 0, 0, 50, 70, 10, direction * 90)
@@ -104,16 +104,16 @@ class MiniGameMonsterHunter:
         self._screen.blit(self._bg, (0, 0))
         for event in events:
             if event.type == self._pygame.KEYDOWN:
-                if event.key == self._pygame.K_UP:
+                if (event.key == self._pygame.K_UP) or (event.key == self._pygame.K_z):
                     key = 0
                     break
-                if event.key == self._pygame.K_RIGHT:
+                if (event.key == self._pygame.K_RIGHT) or (event.key == self._pygame.K_d):
                     key = 1
                     break
-                if event.key == self._pygame.K_DOWN:
+                if (event.key == self._pygame.K_DOWN) or (event.key == self._pygame.K_s):
                     key = 2
                     break
-                if event.key == self._pygame.K_LEFT:
+                if (event.key == self._pygame.K_LEFT) or (event.key == self._pygame.K_q):
                     key = 3
                     break
 

@@ -7,7 +7,7 @@ class DisplayAction:
         self.font = pygame.font.Font(None, 80)
         self.fastSpeed = 40
         self.slowSpeed = 3
-        self.slowZone = 150
+        self.slowZone = 200
         self.pos = 0
         self.offset = 0
         self.text = ""

@@ -16,7 +16,7 @@ class MiniGameMarioGalaxy:
             self._stars.append((random.randint(0, screen.get_width()), random.randint(0, screen.get_height())))
         self._action = DisplayAction(pygame, screen, "Shake your mouse!")
         self._msg = DisplayAction(pygame, screen, "Nice!", "assets/sfx/excellent.ogg")
-        self._timer = Timer(pygame, screen, 5)
+        self._timer = Timer(pygame, screen, 6)
         self._pause = Pause(pygame, screen)
 
         self._shake1 = None
