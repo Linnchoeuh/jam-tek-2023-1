@@ -16,7 +16,7 @@ class MiniGameJeanEudePLS:
 
         self._hand = [None, None]
 
-        self._timer = Timer(pygame, screen, 30)
+        self._timer = Timer(pygame, screen, 5)
         self._pause = Pause(pygame, screen)
 
         self._currentMousePos = (0, 0)
