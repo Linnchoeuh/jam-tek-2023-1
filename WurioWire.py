@@ -4,6 +4,7 @@ from src.Scenes.SceneManager import SceneManager
 from src.ColorPalette import *
 from src.WindowConfig import *
 
+from src.Animation import Animation
 
 # Initialize pygame
 pygame.init()
@@ -17,7 +18,11 @@ pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
 
 
+spriteSheet = pygame.image.load("assets/sprite/player3Down.png")
+animationGroup = pygame.sprite.Group()
+animationGroup.add(Animation(spriteSheet, 4, 1))
 SceneManager = SceneManager(pygame, screenCpy)
+
 # Game loop
 running = True
 while running:
@@ -37,6 +42,8 @@ while running:
     SceneManager.displayScene()
 
     screen.blit(pygame.transform.scale(screenCpy, (screen.get_size()[1] * SCREENRATIO, screen.get_size()[1])), ((screen.get_size()[0] - screen.get_size()[1] * SCREENRATIO) / 2, 0))
+    #animationGroup.update()
+    #animationGroup.draw(screen)
     pygame.display.flip()
 
     # Limit the frame rate to 60 FPS

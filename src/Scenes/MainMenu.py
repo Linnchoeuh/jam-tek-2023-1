@@ -34,5 +34,5 @@ class MainMenu:
         if (self._quitButton.isClicked(sceneManager._mouse)):
             self._pygame.event.post(self._pygame.event.Event(self._pygame.QUIT))
         if (self._playButton.isClicked(sceneManager._mouse)):
-            sceneManager.changeScene("MiniGameMarioGalaxy")
+            sceneManager.changeScene("MiniGameDodgeDinner")
             sceneManager.setScore(0)
