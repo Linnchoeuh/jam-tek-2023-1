@@ -24,8 +24,7 @@ class MainMenu:
 
     def run(self, sceneManager):
         # Draw a simple square
-        text_rect = self.text_surface.get_rect()
-        self._screen.blit(self.text_surface, text_rect)
+        self._screen.blit(self.text_surface, (10, 10))
         self._playButton.display()
         self._quitButton.display()
 
@@ -34,5 +33,5 @@ class MainMenu:
         if (self._quitButton.isClicked(sceneManager._mouse)):
             self._pygame.event.post(self._pygame.event.Event(self._pygame.QUIT))
         if (self._playButton.isClicked(sceneManager._mouse)):
-            sceneManager.changeScene("MiniGameJeanEudePLS")
+            sceneManager.changeScene("MiniGameMonsterHunter")
             sceneManager.setScore(0)

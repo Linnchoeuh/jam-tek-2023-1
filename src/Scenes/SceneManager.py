@@ -5,7 +5,9 @@ from src.Scenes.LoseMenu import LoseMenu
 from src.Scenes.TestMenu import TestMenu
 from src.MiniGame.MarioGalaxy import MiniGameMarioGalaxy
 from src.MiniGame.JeanEudePLS import MiniGameJeanEudePLS
-from src.MiniGame.DoodleJump import MiniGameDoodleJump
+from src.MiniGame.DodgeDinner import MiniGameDodgeDinner
+from src.MiniGame.MonsterHunter import MiniGameMonsterHunter
+
 class SceneManager:
     def __init__(self, pygame, screen):
         self._pygame = pygame
@@ -19,7 +21,8 @@ class SceneManager:
             "TestMenu": TestMenu(pygame, screen),
             "MiniGameMarioGalaxy": MiniGameMarioGalaxy(pygame, screen),
             "MiniGameJeanEudePLS": MiniGameJeanEudePLS(pygame, screen),
-            "MiniGameDoodleJump": MiniGameDoodleJump(pygame, screen)
+            "MiniGameDodgeDinner": MiniGameDodgeDinner(pygame, screen),
+            "MiniGameMonsterHunter": MiniGameMonsterHunter(pygame, screen),
         }
 
         self._music = self._pygame.mixer.Sound("assets/music/wario_ware_smash_theme.ogg")
