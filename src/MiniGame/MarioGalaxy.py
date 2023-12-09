@@ -124,10 +124,7 @@ class MiniGameMarioGalaxy:
         if self._shakeCount >= self._shakeCountMax:
             self._rotationSpeed = 60
             if self._msg.display() and not self._gameChanged:
-                sceneManager.incrementDifficulty()
-                sceneManager.incrementScore()
-                sceneManager.changeScene("MiniGameJeanEudePLS")
-                sceneManager.changeScene("MiniGameMonsterHunter")
+                sceneManager.nextGame()
                 self._gameChanged = True
             if self._delay > 0:
                 self._delay -= 1

@@ -30,7 +30,7 @@ class MiniGameDodgeDinner:
         self._timer.reset()
         self._pause.reset()
         self._warmup = 1.0
-        
+
         self.utensilsSpeed = 14 + sceneManager.getDifficulty() * 2
         if self.utensilsSpeed > 20:
             self.utensilsSpeed = 20
@@ -45,29 +45,27 @@ class MiniGameDodgeDinner:
 
         for star in self._stars:
             self._pygame.draw.circle(self._screen, GBACOLOR3, star, 2)
-        
+
         for utensil in self._utensils:
             utensil.move(self.utensilsSpeed)
             utensil.display()
             if utensil._rect.x > self._screen.get_width() + utensil._rect.width or utensil._rect.x < 0 - utensil._rect.width - 10:
                 self._utensils.remove(utensil)
-        
+
         if self._warmup < 0:
             if len(self._utensils) < 3 + sceneManager.getDifficulty():
                 if random.randint(0, 1):
                     self._utensils.append(Fork(self._pygame, self._screen, random.randint(0, self._screen.get_height())))
                 else:
-                    self._utensils.append(Knife(self._pygame, self._screen, random.randint(0, self._currentMousePos[1])))
+                    self._utensils.append(Knife(self._pygame, self._screen, random.randint(0, int(self._currentMousePos[1]))))
         else:
             self._warmup -= 0.01
-        
+
         self._action.display()
         if self._timer.display():
             self._utensils.clear()
             if self._msg.display() and not self._gameChanged:
-                sceneManager.incrementDifficulty()
-                sceneManager.incrementScore()
-                sceneManager.changeScene("MiniGameDodgeDinner")
+                sceneManager.nextGame()
                 self._gameChanged = True
         for utensil in self._utensils:
             if mouseCollision(self._currentMousePos, utensil):
@@ -87,10 +85,10 @@ class Fork:
 
     def display(self):
         self._screen.blit(self._img, self._rect)
-    
+
     def move(self, speed):
         self._rect.x += speed
-        
+
 class Knife:
     def __init__(self, pygame, screen, y = 0):
         self._pygame = pygame
@@ -103,7 +101,7 @@ class Knife:
 
     def display(self):
         self._screen.blit(self._img, self._rect)
-    
+
     def move(self, speed):
         self._rect.x -= speed
 

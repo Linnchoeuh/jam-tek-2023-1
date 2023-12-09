@@ -33,5 +33,7 @@ class MainMenu:
         if (self._quitButton.isClicked(sceneManager._mouse)):
             self._pygame.event.post(self._pygame.event.Event(self._pygame.QUIT))
         if (self._playButton.isClicked(sceneManager._mouse)):
-            sceneManager.changeScene("MiniGameMonsterHunter")
+            sceneManager.setDifficulty(0)
+            sceneManager.resetGameList()
+            sceneManager.nextGame()
             sceneManager.setScore(0)

@@ -36,3 +36,8 @@ class LoseMenu:
             self._pygame.event.post(self._pygame.event.Event(self._pygame.QUIT))
         if (self._playButton.isClicked(sceneManager._mouse)):
             sceneManager.changeScene("MainMenu")
+        if (self._retryButton.isClicked(sceneManager._mouse)):
+            sceneManager.setDifficulty(0)
+            sceneManager.resetGameList()
+            sceneManager.nextGame()
+            sceneManager.setScore(0)

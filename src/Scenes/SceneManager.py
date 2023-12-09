@@ -1,12 +1,15 @@
+import random
+
 from src.ColorPalette import *
 from src.Mouse import Mouse
 from src.Scenes.MainMenu import MainMenu
 from src.Scenes.LoseMenu import LoseMenu
-from src.Scenes.TestMenu import TestMenu
+
 from src.MiniGame.MarioGalaxy import MiniGameMarioGalaxy
 from src.MiniGame.JeanEudePLS import MiniGameJeanEudePLS
 from src.MiniGame.DodgeDinner import MiniGameDodgeDinner
 from src.MiniGame.MonsterHunter import MiniGameMonsterHunter
+# from src.MiniGame.DoodleJump import MiniGameDoodleJump
 
 class SceneManager:
     def __init__(self, pygame, screen):
@@ -18,12 +21,21 @@ class SceneManager:
         self._sceneList: dict = {
             "MainMenu": MainMenu(pygame, screen),
             "LoseMenu": LoseMenu(pygame, screen),
-            "TestMenu": TestMenu(pygame, screen),
             "MiniGameMarioGalaxy": MiniGameMarioGalaxy(pygame, screen),
             "MiniGameJeanEudePLS": MiniGameJeanEudePLS(pygame, screen),
             "MiniGameDodgeDinner": MiniGameDodgeDinner(pygame, screen),
             "MiniGameMonsterHunter": MiniGameMonsterHunter(pygame, screen),
+            # "MiniGameDoodleJump": MiniGameDoodleJump(pygame, screen)
         }
+
+        self._gameList = [
+            "MiniGameMarioGalaxy",
+            "MiniGameJeanEudePLS",
+            "MiniGameDodgeDinner",
+            "MiniGameMonsterHunter",
+            # "MiniGameDoodleJump"
+        ]
+        self._gameToDoList = self._gameList.copy()
 
         self._music = self._pygame.mixer.Sound("assets/music/wario_ware_smash_theme.ogg")
         self._music.play(-1)
@@ -131,3 +143,16 @@ class SceneManager:
 
     def updateMouse(self, screen):
         self._mouse.scalePosition(screen.get_width(), screen.get_height())
+
+    def resetGameList(self):
+        self._gameToDoList = self._gameList.copy()
+
+    def nextGame(self):
+        if len(self._gameToDoList) == 0:
+            self.incrementDifficulty()
+            self.resetGameList()
+        # print("TO DO: ", self._gameToDoList)
+        pickedGame = random.randint(0, len(self._gameToDoList) - 1)
+        self.changeScene(self._gameToDoList[pickedGame])
+        self._gameToDoList.pop(pickedGame)
+        self.incrementScore()

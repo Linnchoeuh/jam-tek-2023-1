@@ -49,6 +49,9 @@ class MiniGameJeanEudePLS:
         self._shakingDuration = 0
         self._shakingAmplitude = 50
 
+        self._action.reset()
+        self._msg.reset()
+
     def unloadScene(self, sceneManager):
         self._jeaneude = None
         self._hand[0] = None
@@ -110,9 +113,7 @@ class MiniGameJeanEudePLS:
 
         if self._slapCount >= self._slappCountMax:
             if self._msg.display() and not self._gameChanged:
-                sceneManager.incrementDifficulty()
-                sceneManager.incrementScore()
-                sceneManager.changeScene("MiniGameMarioGalaxy")
+                sceneManager.nextGame()
                 self._gameChanged = True
         elif self._timer.display():
             sceneManager.changeScene("LoseMenu")
