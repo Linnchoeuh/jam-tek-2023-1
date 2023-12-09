@@ -4,6 +4,7 @@ from src.Scenes.MainMenu import MainMenu
 from src.Scenes.LoseMenu import LoseMenu
 from src.Scenes.TestMenu import TestMenu
 from src.MiniGame.MarioGalaxy import MiniGameMarioGalaxy
+from src.MiniGame.DodgeDinner import MiniGameDodgeDinner
 from src.MiniGame.MonsterHunter import MiniGameMonsterHunter
 
 class SceneManager:
@@ -17,7 +18,8 @@ class SceneManager:
             "MainMenu": MainMenu(pygame, screen),
             "LoseMenu": LoseMenu(pygame, screen),
             "TestMenu": TestMenu(pygame, screen),
-            "MiniGameMarioGalaxy": MiniGameMarioGalaxy(pygame, screen),
+            "MiniGameMarioGalaxy": MiniGameMarioGalaxy(pygame, screen
+            "MiniGameDodgeDinner": MiniGameDodgeDinner(pygame, screen),
             "MiniGameMonsterHunter": MiniGameMonsterHunter(pygame, screen),
         }
 
