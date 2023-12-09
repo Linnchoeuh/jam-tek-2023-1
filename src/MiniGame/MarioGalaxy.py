@@ -126,6 +126,7 @@ class MiniGameMarioGalaxy:
             if self._msg.display() and not self._gameChanged:
                 sceneManager.incrementDifficulty()
                 sceneManager.incrementScore()
+                sceneManager.changeScene("MiniGameJeanEudePLS")
                 sceneManager.changeScene("MiniGameMonsterHunter")
                 self._gameChanged = True
             if self._delay > 0:
