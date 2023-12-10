@@ -7,6 +7,7 @@ from src.Pause import Pause
 from src import ColorPalette
 
 import random
+import time
 
 NUM_LINES = 5
 LINE_WIDTH = 20
@@ -27,11 +28,43 @@ class MiniGameCyberpunk:
         self._action = DisplayAction(self._pygame, self._screen, "Take the rythm!")
         self._msg = DisplayAction(self._pygame, self._screen, "Bravo!")
 
-        self._timer = Timer(self._pygame, self._screen, 8)
+        self._timer = Timer(self._pygame, self._screen, 10)
         self._pause = Pause(self._pygame, self._screen)
 
         self._key_pressed = [False] * NUM_LINES
         self._gameChanged = False
+        self._bpm = 130
+        self._startTime = 0
+        self._noteMissing = 0
+
+    def generateNotes(self, sceneManager, force = False):
+        noteProbality= [100, 10, 5, 3, 1]
+        availableNotes = [0, 1, 2, 3, 4]
+        newNotes = []
+        self._noteMissing += 1
+        if self._noteMissing > 1 or force or random.randint(0, 10) < 8:
+            self._noteMissing = 0
+            index = random.randint(0, NUM_LINES - 1)
+            note = {
+                "line_index": availableNotes[index],
+                "y": -200,
+                "has_appeared": False,
+            }
+            availableNotes.pop(index)
+            newNotes.append(note)
+            for i in range(1, NUM_LINES - 1):
+                finalProb = noteProbality[i] * (1 - 1 / (sceneManager.getDifficulty() + 1))
+                if random.randint(0, 100) <= finalProb:
+                    index = random.randint(0, NUM_LINES - 1 - i)
+                    note = {
+                        "line_index": availableNotes[index],
+                        "y": -200,
+                        "has_appeared": False,
+                    }
+                    availableNotes.pop(index)
+                    newNotes.append(note)
+        return newNotes
+
 
     def loadScene(self, sceneManager):
         self._gameChanged = False
@@ -40,16 +73,9 @@ class MiniGameCyberpunk:
         self._msg.reset()
         self._pause.reset()
 
-        num_notes = 20
+        self._startTime = time.time()
+        self._notes = self.generateNotes(sceneManager, True)
 
-        self._notes = []
-        for i in range(num_notes):
-            note = {
-                "line_index": random.randint(0, NUM_LINES - 1),
-                "y": random.randint(-5000, -15),
-                "has_appeared": False,
-            }
-            self._notes.append(note)
         self._note_speed = 5 + sceneManager.getDifficulty() // 10
         self._note_appeared = 0
         self._note_cleared = 0
@@ -71,6 +97,11 @@ class MiniGameCyberpunk:
         events = sceneManager.getEvents()
         start_x = (self._screen.get_width() - (NUM_LINES - 1) * LINE_SPACING) // 2
         font = self._pygame.font.Font(None, 36)
+
+        # print(len(self._notes))
+        if time.time() - self._startTime > 60 / self._bpm:
+            self._startTime += 60 / self._bpm
+            self._notes += self.generateNotes(sceneManager)
 
         for event in events:
             if event.type == self._pygame.KEYDOWN:
@@ -94,6 +125,13 @@ class MiniGameCyberpunk:
             text_y = self._screen.get_height() - 50
             self._screen.blit(key_text, (text_x, text_y))
 
+
+
+        for note in self._notes:
+            if note["y"] >= self._screen.get_height():
+                self._notes.remove(note)
+                continue
+
         for note in self._notes:
             line_index = note["line_index"]
             note_x = start_x + line_index * LINE_SPACING - note_width // 2
@@ -103,10 +141,6 @@ class MiniGameCyberpunk:
             if note["y"] >= self._screen.get_height() - 90 and not note["has_appeared"]:
                 note["has_appeared"] = True
                 self._note_appeared += 1
-
-            if note["y"] >= self._screen.get_height():
-                self._notes.remove(note)
-                continue
 
             self._pygame.draw.rect(self._screen, note_color, (note_x, note_y, note_width, note_height))
 
@@ -128,7 +162,7 @@ class MiniGameCyberpunk:
     def handle_input(self, line_index):
         for note in self._notes:
             if note["line_index"] == line_index:
-                if note["y"] > self._screen.get_height() - 75 - LINE_WIDTH:
+                if note["y"] > self._screen.get_height() - 75 - LINE_WIDTH - 50:
                     self._notes.remove(note)
                     self._note_cleared += 1
                     self._musical_notes[line_index].play()
