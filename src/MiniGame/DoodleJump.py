@@ -24,6 +24,8 @@ class MiniGameDoodleJump:
         self._doodlerSpeed = 10
         self._gameChanged = False
 
+        self._boeing_list = []
+
 
     def loadScene(self, sceneManager):
         self._timer.reset()
@@ -86,21 +88,12 @@ class MiniGameDoodleJump:
             newX += min(self._doodlerSpeed, abs(self._doodler_pos[0] - mouseOffsetX))
         self._doodler_pos = (newX, self._doodler_pos[1])
 
-        # if self._currentMousePos[0] < mid_screen:
-        #     self._doodler_pos = (self._doodler_pos[0] - 10, self._doodler_pos[1])
-        #     if self._isFlipping:
-        #         self._doodler = self._pygame.transform.flip(self._doodler, True, False)
-        #         self._isFlipping = False
-        # else:
-        #     self._doodler_pos = (self._doodler_pos[0] + 10, self._doodler_pos[1])
-        #     if not self._isFlipping:
-        #         self._doodler = self._pygame.transform.flip(self._doodler, True, False)
-        #         self._isFlipping = True
-
-        # if self._doodler_pos[0] < 0:
-        #     self._doodler_pos = (self._screen.get_width(), self._doodler_pos[1])
-        # elif self._doodler_pos[0] > self._screen.get_width():
-        #     self._doodler_pos = (0, self._doodler_pos[1])
+        if self._currentMousePos[0] < mid_screen and self._isFlipping:
+                self._doodler = self._pygame.transform.flip(self._doodler, True, False)
+                self._isFlipping = False
+        elif self._currentMousePos[0] > mid_screen and not self._isFlipping:
+                self._doodler = self._pygame.transform.flip(self._doodler, True, False)
+                self._isFlipping = True
 
         for i in range(len(self._platforms_pos)):
             self._screen.blit(self._platform, self._platforms_pos[i])
@@ -108,6 +101,7 @@ class MiniGameDoodleJump:
 
         for platform_x, platform_y in self._platforms_pos:
             if self.check_collision(self._doodler_pos, (platform_x, platform_y)):
+                self._pygame.mixer.Sound("assets/sfx/jump.ogg").play()
                 self._isJumping = True
                 self._verticalSpeed = self._jump_speed
                 break
