@@ -17,9 +17,7 @@ pygame.display.set_caption("Wurio Wire")
 # Create a clock object
 clock = pygame.time.Clock()
 
-spriteSheet = pygame.image.load("assets/sprite/player3Down.png")
 animationGroup = pygame.sprite.Group()
-animationGroup.add(Animation(spriteSheet, 4, 1))
 SceneManager = SceneManager(pygame, screenCpy)
 
 joffrey_left = pygame.image.load("assets/img/joffrey_left_green.png")
