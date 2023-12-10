@@ -1,4 +1,4 @@
-# Wurio Ware
+# Wurio Wire
 
 Have fun playing a lot of minigames !
 
