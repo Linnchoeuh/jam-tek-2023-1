@@ -25,7 +25,10 @@ class MiniGameJeanEudePLS:
         self._previousMouseVector = [0, 0]
 
     def loadScene(self, sceneManager):
+        self._action.reset()
+        self._msg.reset()
         self._timer.reset()
+        self._pause.reset()
 
         self._slapCount = 0
         self._slappCountMax = 20 + sceneManager.getDifficulty() * 5
@@ -49,8 +52,6 @@ class MiniGameJeanEudePLS:
         self._shakingDuration = 0
         self._shakingAmplitude = 50
 
-        self._action.reset()
-        self._msg.reset()
 
     def unloadScene(self, sceneManager):
         self._jeaneude = None

@@ -28,7 +28,10 @@ class MiniGameDoodleJump:
 
 
     def loadScene(self, sceneManager):
+        self._action.reset()
+        self._msg.reset()
         self._timer.reset()
+        self._pause.reset()
         self._gameChanged = False
 
         self._doodler = self._pygame.image.load("assets/img/doodler.png")

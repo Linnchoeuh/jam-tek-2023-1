@@ -122,7 +122,7 @@ class MiniGameCyberpunk:
                     self._gameChanged = True
             else:
                 sceneManager.changeScene("LoseMenu")
-
+        sceneManager.displayScore()
         self._action.display()
 
     def handle_input(self, line_index):
