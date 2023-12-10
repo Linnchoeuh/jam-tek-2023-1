@@ -37,4 +37,3 @@ class MainMenu:
             sceneManager.resetGameList()
             sceneManager.nextGame()
             sceneManager.setScore(0)
-            # sceneManager.changeScene("MiniGameDoodleJump")

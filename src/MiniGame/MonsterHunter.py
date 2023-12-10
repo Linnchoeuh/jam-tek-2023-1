@@ -132,6 +132,8 @@ class MiniGameMonsterHunter:
                 random.randint(-170, 0), # Angle
                 0 # Rotation
                 ])
+        elif key != -1:
+            self._timer.reduceTime(0.5)
 
         self._pygame.draw.rect(self._screen, GBACOLOR0, (500, 50, 100, 100))
         offsetX = 0
