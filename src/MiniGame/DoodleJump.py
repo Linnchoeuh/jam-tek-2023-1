@@ -21,6 +21,10 @@ class MiniGameDoodleJump:
 
         self._timer = Timer(pygame, screen, 10)
 
+        self._doodlerSpeed = 10
+        self._gameChanged = False
+
+
     def loadScene(self, sceneManager):
         self._timer.reset()
         self._gameChanged = False
@@ -37,12 +41,16 @@ class MiniGameDoodleJump:
         first_platform_pos = (self._screen.get_width() // 2 - self._platform.get_width() // 2, self._screen.get_height() - self._platform.get_height() - 100)
         self._platforms_pos.append(first_platform_pos)
 
+        lastX = first_platform_pos[0]
         for i in range(1, 10 + sceneManager.getDifficulty()):
             prev_platform_x, prev_platform_y = self._platforms_pos[i-1]
 
-            min_x = 0
-            max_x = self._screen.get_width() - self._platform.get_width()
+            min_x = max(prev_platform_x - 350, self._platform.get_width() // 2)
+            max_x = min(prev_platform_x + 350, self._screen.get_width() - self._platform.get_width() // 2)
+            # min_x = 0
+            # max_x = self._screen.get_width() - self._platform.get_width()
             platform_x = random.randint(min_x, max_x)
+            prev_platform_x = platform_x
 
             platform_y = prev_platform_y - 100
             platform_pos = (platform_x, platform_y)
@@ -70,21 +78,29 @@ class MiniGameDoodleJump:
         self._currentMousePos = sceneManager._mouse.getPos()
         mid_screen = self._screen.get_width() // 2
 
-        if self._currentMousePos[0] < mid_screen:
-            self._doodler_pos = (self._doodler_pos[0] - 10, self._doodler_pos[1])
-            if self._isFlipping:
-                self._doodler = self._pygame.transform.flip(self._doodler, True, False)
-                self._isFlipping = False
-        else:
-            self._doodler_pos = (self._doodler_pos[0] + 10, self._doodler_pos[1])
-            if not self._isFlipping:
-                self._doodler = self._pygame.transform.flip(self._doodler, True, False)
-                self._isFlipping = True
+        newX = self._doodler_pos[0]
+        mouseOffsetX = (self._currentMousePos[0] - self._doodler.get_width() / 2)
+        if self._doodler_pos[0] - mouseOffsetX > 0:
+            newX -= min(self._doodlerSpeed, abs(self._doodler_pos[0] - mouseOffsetX))
+        elif mouseOffsetX - self._doodler_pos[0] > 0:
+            newX += min(self._doodlerSpeed, abs(self._doodler_pos[0] - mouseOffsetX))
+        self._doodler_pos = (newX, self._doodler_pos[1])
 
-        if self._doodler_pos[0] < 0:
-            self._doodler_pos = (self._screen.get_width(), self._doodler_pos[1])
-        elif self._doodler_pos[0] > self._screen.get_width():
-            self._doodler_pos = (0, self._doodler_pos[1])
+        # if self._currentMousePos[0] < mid_screen:
+        #     self._doodler_pos = (self._doodler_pos[0] - 10, self._doodler_pos[1])
+        #     if self._isFlipping:
+        #         self._doodler = self._pygame.transform.flip(self._doodler, True, False)
+        #         self._isFlipping = False
+        # else:
+        #     self._doodler_pos = (self._doodler_pos[0] + 10, self._doodler_pos[1])
+        #     if not self._isFlipping:
+        #         self._doodler = self._pygame.transform.flip(self._doodler, True, False)
+        #         self._isFlipping = True
+
+        # if self._doodler_pos[0] < 0:
+        #     self._doodler_pos = (self._screen.get_width(), self._doodler_pos[1])
+        # elif self._doodler_pos[0] > self._screen.get_width():
+        #     self._doodler_pos = (0, self._doodler_pos[1])
 
         for i in range(len(self._platforms_pos)):
             self._screen.blit(self._platform, self._platforms_pos[i])
@@ -106,8 +122,10 @@ class MiniGameDoodleJump:
                 for i in range(len(self._platforms_pos)):
                     self._platforms_pos[i] = (self._platforms_pos[i][0], self._platforms_pos[i][1] - self._verticalSpeed)
 
-        if self._platforms_pos[len(self._platforms_pos) - 1][1] > self._screen.get_height() - self._platform.get_height():
+        if not self._gameChanged and \
+        self._platforms_pos[len(self._platforms_pos) - 1][1] > self._screen.get_height() - self._platform.get_height():
             sceneManager.nextGame()
+            self._gameChanged = True
         elif self._platforms_pos[0][1] < 0:
             sceneManager.changeScene("LoseMenu")
 

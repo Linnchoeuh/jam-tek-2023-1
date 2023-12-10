@@ -218,7 +218,7 @@ class MiniGameWiiPlayTanks:
         self._screen = screen
         self._action = DisplayAction(pygame, screen, "Aim and shot by clicking!", "assets/sfx/start_trumpet.ogg")
         self._msg = DisplayAction(pygame, screen, "Victory!", "assets/sfx/win_trumpet.ogg")
-        self._timer = Timer(pygame, screen, 50)
+        self._timer = Timer(pygame, screen, 30)
         self._pause = Pause(pygame, screen)
 
         self._tank = None
