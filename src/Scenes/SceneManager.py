@@ -11,6 +11,7 @@ from src.MiniGame.DodgeDinner import MiniGameDodgeDinner
 from src.MiniGame.MonsterHunter import MiniGameMonsterHunter
 from src.MiniGame.DoodleJump import MiniGameDoodleJump
 from src.MiniGame.WiiPlayTanks import MiniGameWiiPlayTanks
+from src.MiniGame.Farminions import MiniGameFarminions
 from src.MiniGame.Cyberpunk import MiniGameCyberpunk
 
 class SceneManager:
@@ -29,6 +30,7 @@ class SceneManager:
             "MiniGameMonsterHunter": MiniGameMonsterHunter(pygame, screen),
             "MiniGameDoodleJump": MiniGameDoodleJump(pygame, screen),
             "MiniGameWiiPlayTanks": MiniGameWiiPlayTanks(pygame, screen),
+            "MiniGameFarminions": MiniGameFarminions(pygame, screen),
             "MiniGameCyberpunk": MiniGameCyberpunk(pygame, screen),
         }
 
@@ -39,6 +41,7 @@ class SceneManager:
             "MiniGameMonsterHunter",
             "MiniGameDoodleJump",
             "MiniGameWiiPlayTanks",
+            "MiniGameFarminions",
             "MiniGameCyberpunk",
         ]
         self._gameToDoList = self._gameList.copy()

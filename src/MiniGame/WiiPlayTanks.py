@@ -228,7 +228,7 @@ class MiniGameWiiPlayTanks:
         self._gameChanged = False
 
     def loadScene(self, sceneManager):
-        self._tank = Tank(self._pygame, self._screen, 100, self._screen.get_size()[1] / 2, 3)
+        self._tank = Tank(self._pygame, self._screen, 200, self._screen.get_size()[1] / 2, 3)
         self._gameChanged = False
         self._tanks = []
         for i in range(sceneManager.getDifficulty() // 2 + 3):

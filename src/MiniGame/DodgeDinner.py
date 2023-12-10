@@ -38,6 +38,7 @@ class MiniGameDodgeDinner:
         pass
 
     def unloadScene(self, sceneManager):
+        self._utensils.clear()
         pass
 
     def run(self, sceneManager):
