@@ -72,7 +72,7 @@ class Missile:
         return self._exploding
 
 class Tank:
-    def __init__(self, pygame, screen, x = 0, y = 0, speed = 10, tag = 0, movable = True, color1 = GBACOLOR1, color2 = GBACOLOR3):
+    def __init__(self, pygame, screen, x = 0, y = 0, speed = 10, tag = 0, movable = True, color1 = GBACOLOR1, color2 = GBACOLOR3, cooldown = 0):
         self._pygame = pygame
         self._screen = screen
         self._x = x
@@ -82,7 +82,7 @@ class Tank:
         self._tag = tag
         self._color1 = color1
         self._color2 = color2
-        self._coolDown = 0
+        self._coolDown = cooldown
         self._coolDownMax = 24
         self._exploding = 0
         self._nbFrame = 17
@@ -194,7 +194,7 @@ class Tank:
         self.setAngle(angle)
 
         if self._coolDown <= 0:
-            self._coolDown = random.randint(self._coolDownMax * 4 - difficulty, self._coolDownMax * 8 - difficulty)
+            self._coolDown = random.randint(self._coolDownMax * 6 - difficulty, self._coolDownMax * 9 - difficulty)
             return self.shoot()
         else:
             self._coolDown -= 1
@@ -228,14 +228,15 @@ class MiniGameWiiPlayTanks:
         self._gameChanged = False
 
     def loadScene(self, sceneManager):
-        self._tank = Tank(self._pygame, self._screen, 200, self._screen.get_size()[1] / 2, 3)
+        self._tank = Tank(self._pygame, self._screen, 150, self._screen.get_size()[1] / 2, 3)
         self._gameChanged = False
         self._tanks = []
         for i in range(sceneManager.getDifficulty() // 2 + 3):
             self._tanks.append(Tank(self._pygame, self._screen, \
                 random.randint(0, 3) * 70 + 550, \
                 random.randint(0, (self._screen.get_size()[1] / 100) - 2) * 100 + 100, \
-                1, 1, (random.randint(0, 9) < sceneManager.getDifficulty()), GBACOLOR3, GBACOLOR1))
+                1, 1, (random.randint(0, 9) < sceneManager.getDifficulty()), \
+                GBACOLOR3, GBACOLOR1, 100))
         self._missiles = []
         self._action.reset()
         self._msg.reset()
