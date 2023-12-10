@@ -45,10 +45,8 @@ class MiniGameFarminions:
 
     def run(self, sceneManager):
         self._currentMousePos = sceneManager._mouse.getPos()
-        if self._gameOver == False:
-            self._gameOver = self._timer.display()
-        
-        
+
+
         self._screen.blit(self._imgs[2], self._imgs[2].get_rect())
         if (not self._nbrFarm >= self._targetNbrFarm):
             if len(self._farmOnScreen) == 0:
@@ -60,7 +58,7 @@ class MiniGameFarminions:
                 self._farmOnScreen.pop()
                 self._nbrFarm += 1
                 self._coinSound.play()
-        
+
         self._action.display()
         if self._nbrFarm >= self._targetNbrFarm:
             self._farmOnScreen.clear()
@@ -69,6 +67,8 @@ class MiniGameFarminions:
                 self._gameChanged = True
         elif self._gameOver:
                 sceneManager.changeScene("LoseMenu")
+        if self._gameOver == False:
+            self._gameOver = self._timer.display()
         self._pause.display(sceneManager)
         sceneManager.displayScore()
 
