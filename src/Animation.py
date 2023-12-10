@@ -28,3 +28,6 @@ class Animation(pygame.sprite.Sprite):
         if self.animation_counter % self.animation_speed == 0:
             self.current_frame = (self.current_frame + 1) % len(self.frames)
             self.image = self.frames[self.current_frame]
+
+    def draw(self, screen, x = 0, y = 0):
+        screen.blit(self.image, (x - self.frame_width / 2, y - self.frame_height / 2))
