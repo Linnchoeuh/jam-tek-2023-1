@@ -12,7 +12,7 @@ class MiniGameDoodleJump:
         self._screen = screen
 
         self._action = DisplayAction(pygame, screen, "Jump on the platforms!")
-        self._msg = DisplayAction(pygame, screen, "You won!", "assets/sfx/excellent.ogg")
+        self._msg = DisplayAction(pygame, screen, "You elevated enough!", "assets/music/win-doodle.ogg")
 
         self._pause = Pause(pygame, screen)
 
@@ -119,6 +119,7 @@ class MiniGameDoodleJump:
         if not self._gameChanged and \
         self._platforms_pos[len(self._platforms_pos) - 1][1] > self._screen.get_height() - self._platform.get_height():
             sceneManager.nextGame()
+            self._msg.display()
             self._gameChanged = True
         elif self._platforms_pos[0][1] < 0:
             sceneManager.changeScene("LoseMenu")
