@@ -35,14 +35,14 @@ class SceneManager:
         }
 
         self._gameList = [
-            "MiniGameMarioGalaxy",
-            "MiniGameJeanEudePLS",
-            "MiniGameDodgeDinner",
-            "MiniGameMonsterHunter",
-            "MiniGameDoodleJump",
-            "MiniGameWiiPlayTanks",
+            # "MiniGameMarioGalaxy",
+            # "MiniGameJeanEudePLS",
+            # "MiniGameDodgeDinner",
+            # "MiniGameMonsterHunter",
+            # "MiniGameDoodleJump",
+            # "MiniGameWiiPlayTanks",
             "MiniGameFarminions",
-            "MiniGameCyberpunk",
+            # "MiniGameCyberpunk",
         ]
         self._gameToDoList = self._gameList.copy()
 
