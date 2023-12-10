@@ -31,8 +31,10 @@ class MiniGameCyberpunk:
         self._pause = Pause(self._pygame, self._screen)
 
         self._key_pressed = [False] * NUM_LINES
+        self._gameChanged = False
 
     def loadScene(self, sceneManager):
+        self._gameChanged = False
         self._timer.reset()
         self._action.reset()
         self._msg.reset()
@@ -115,7 +117,9 @@ class MiniGameCyberpunk:
         if self._timer.display():
             if self._note_cleared >= (self._note_appeared * 2) // 3:
                 self._msg.display()
-                sceneManager.nextGame()
+                if not self._gameChanged:
+                    sceneManager.nextGame()
+                    self._gameChanged = True
             else:
                 sceneManager.changeScene("LoseMenu")
 
