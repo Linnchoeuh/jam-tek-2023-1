@@ -12,3 +12,10 @@ Have fun playing a lot of minigames !
 - [Antoine Rospars](https://github.com/P4ST4S)
 - [Jean-Pierre Janopoulos](https://github.com/ianophael)
 - [Lenny Vigeon](https://github.com/Linnchoeuh)
+
+## Run game
+
+Run WurioWire.py or run from a terminal
+```
+python ./WurioWire.py
+```
