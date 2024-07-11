@@ -234,7 +234,7 @@ class MiniGameWiiPlayTanks:
         for i in range(sceneManager.getDifficulty() // 2 + 3):
             self._tanks.append(Tank(self._pygame, self._screen, \
                 random.randint(0, 3) * 70 + 550, \
-                random.randint(0, (self._screen.get_size()[1] / 100) - 2) * 100 + 100, \
+                random.randint(0, int(self._screen.get_size()[1] / 100) - 2) * 100 + 100, \
                 1, 1, (random.randint(0, 9) < sceneManager.getDifficulty()), \
                 GBACOLOR3, GBACOLOR1, 100))
         self._missiles = []

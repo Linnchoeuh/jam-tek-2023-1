@@ -86,8 +86,8 @@ class Minion:
         self._rect = self._img.get_rect()
         self._spawnX = int(self._rect.width * 1.5)
         self._spawnY = int(self._rect.height * 1.5)
-        self._rect.x = random.randint(1, (screen.get_width() / 50) - 3) * 50
-        self._rect.y = random.randint(1, (screen.get_height() / 50) - 3) * 50
+        self._rect.x = random.randint(1, int(screen.get_width() / 50) - 3) * 50
+        self._rect.y = random.randint(1, int(screen.get_height() / 50) - 3) * 50
 
     def display(self):
         self._screen.blit(self._img, self._rect)
